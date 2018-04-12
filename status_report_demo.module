@@ -1,0 +1,50 @@
+<?php
+
+/*
+ * Implements hook_menu().
+ */
+function status_report_demo_menu() {
+  $items = array();
+
+ // module configuration settings
+  $items['admin/config/demos'] = array(
+    'title' => 'Demos',
+    'description' => 'Demo modules configurations',
+    'position' => 'right',
+    'weight' => -15,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('Administer site configuration '),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  // module configuration settings
+  $items['admin/config/demos/status_report_demo'] = array(
+    'title' => 'Status Report Demo',
+    'description' => 'Demo of using hook_requirements() against a configuration checklist.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('status_report_demo_form'),
+    'access arguments' => array('Administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Page callback: Status report demo configuration settings
+ *
+ * @see status_report_demo_menu()
+ */
+function status_report_demo_form($form, &$form_state) {
+  $form['status_report_demo_configuration_task1'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Task 1: Do specific configuration task.'),
+    '#description' => t('Check the box to certify you have completed the task.'),
+    '#default_value' => variable_get('status_report_demo_configuration_task1', FALSE),
+  );
+
+  return system_settings_form($form);
+}
+

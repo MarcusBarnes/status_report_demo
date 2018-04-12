@@ -1,0 +1,24 @@
+<?php
+
+
+/**
+ * Implements hook_requirements().
+ */
+function status_report_demo_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+  if ($phase == 'runtime') {
+
+    $task1_done = variable_get('status_report_demo_configuration_task1');
+    if (!$task1_done) {
+      $requirements['Status Report Demo'] = array(
+        'title' => $t('Status Report Demo Tasks'),
+        'description' => $t('Configuration Task 1'),
+        'value' => 'Please complete and then confirm the configuration
+        task for proper module installation.',
+        'severity' => REQUIREMENT_ERROR,
+      );
+    }
+  }
+  return $requirements;
+}

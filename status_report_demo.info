@@ -1,0 +1,4 @@
+name = Status Report Demo
+description = Demonstration using hook_requirements against a module configuration checklist.
+core = 7.x
+configure = admin/config/demos/status_report_demo
